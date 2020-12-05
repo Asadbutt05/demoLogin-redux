@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { AppContainer } from "./navigation";
 import * as util from "./utilities";
-
+import {Text} from 'react-native'
 
 export default class decider extends Component {
     constructor(props){
@@ -15,9 +15,9 @@ export default class decider extends Component {
         return (
             <AppContext.Provider>
                 <AppContainer
-                    // ref={(navigatorRef) => {
-                    //     util.setTopLevelNavigator(navigatorRef);
-                    // }}
+                  ref={(navigatorRef) => {
+                    util.setTopLevelNavigator(navigatorRef);
+                }}
                 />
             </AppContext.Provider>
         )
