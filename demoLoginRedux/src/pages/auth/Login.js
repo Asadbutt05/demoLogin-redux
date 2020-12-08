@@ -1,14 +1,19 @@
 import React from 'react'
 import {Alert, Text, TextInput, View, TouchableOpacity, ActivityIndicator } from 'react-native'
-import styles from '../styles/GlobalStyles'
-import inputStyle from '../styles/Input'
+import styles from '../../styles/GlobalStyles'
+import inputStyle from '../../styles/Input'
 import {login} from '../../store/actions/auth/auth'
 import { connect } from 'react-redux'
 
 class Login extends React.Component {
   constructor(props){
     super(props)
-    this.state = {loading:false, email: '',pwd:'',xPwd:false};    
+    this.state = {loading:false, email: '',pwd:'',xPwd:false}; 
+    
+    const check = this.props.users.find(user=>user.isLogged === true)
+    if(check){
+      this.props.navigation.navigate('home')
+    }
   }
 
     loginStatus(usersObj,email){
@@ -27,42 +32,35 @@ class Login extends React.Component {
       { cancelable: false }
     )}
 
-    displayAll(){
-      const users = this.props.users
-      console.log(users);
-      
-    }
-
     login(email,pwd){
-    this.setState({loading:true})
-    try {
-      let usersObj = this.props.users
-      if (usersObj !== null) {
-        console.log(usersObj,'aaaaa');
-        const check = usersObj.find(person=>person.email.toLowerCase()===email.toLowerCase())
-        if(check){
-          console.log("User Found: ",check)
-          if(check.pwd===pwd){
-            this.loginStatus(usersObj,email)
+      this.setState({loading:true})
+      try {
+        let usersObj = this.props.users
+        if (usersObj !== null) {
+          const check = usersObj.find(person=>person.email.toLowerCase()===email.toLowerCase())
+          if(check){
+            console.log("User Found: ",check)
+            if(check.pwd===pwd){
+              this.loginStatus(usersObj,email)
+            }else{
+              this.setState({xPwd:true, loading:false})
+            }
           }else{
-            this.setState({xPwd:true, loading:false})
+            console.log('User Not Found!!!',usersObj)
+            this.createAlert()
+            this.setState({loading:false})
           }
-        }else{
-          console.log('User Not Found!!!',usersObj)
+        }
+        else{
           this.createAlert()
           this.setState({loading:false})
+          console.log('No Users!!!',usersObj);
         }
-      }
-      else{
-        this.createAlert()
-        this.setState({loading:false})
-        console.log('No Users!!!',usersObj);
-      }
-    } catch (error) {
-      // Error retrieving data
-      console.log("Error getting data! ",error);
+      } catch (error) {
+        // Error retrieving data
+        console.log("Error getting data! ",error);
 
-    }
+      }
   }
 
   handleEmail(text){
@@ -109,14 +107,12 @@ class Login extends React.Component {
 }
 
 const mapDispatchProps = (dispatch) => {
-  console.log("Mapping dispatch to props");
   return{
     login:(users,email)=>dispatch(login(users,email))
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log("Mapping state to props. State: ",state);
   return {
       users: state.auth.users
   };

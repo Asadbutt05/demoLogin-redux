@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import {Text, TextInput, View, TouchableOpacity,Alert, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {signup} from '../../store/actions/auth/auth'
-import inputStyle from '../styles/Input'
-import styles from '../styles/GlobalStyles'
+import inputStyle from '../../styles/Input'
+import styles from '../../styles/GlobalStyles'
+import {emailValidator} from '../../utilities'
 
 class Signup extends Component {
   constructor(props){
@@ -23,16 +24,6 @@ class Signup extends Component {
   handleConfirmPwd(text){
     this.setState({ confirmPwd: text })
   }
-
-    validateEmail(input){
-      let mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      if((!(input.match(mailFormat))&&(this.state.first!==true))){
-        return true
-      }
-      else{
-        return false
-      }
-    }
 
     validateUsername(input){
         if((input.trim().length<4)&&(this.state.first!==true)){
@@ -61,7 +52,7 @@ class Signup extends Component {
     validateAll(){
       this.setState({first:false, loading:true},()=>{
         const {email, username, pwd, confirmPwd} = this.state
-         if((this.validateEmail(email)===false)&&(this.validatePwd(pwd)===false)&&(this.validatePwd(pwd)===false)&&(this.validateConfirmPwd(pwd,confirmPwd)===false)){
+         if((emailValidator(email)===false)&&(this.validatePwd(pwd)===false)&&(this.validatePwd(pwd)===false)&&(this.validateConfirmPwd(pwd,confirmPwd)===false)){
            console.log(email+' '+username+' '+pwd)
            this.storeData()
          }else{
@@ -96,7 +87,7 @@ class Signup extends Component {
 
    
 render() {
-  const {loading, email, username, pwd, confirmPwd} = this.state
+  const {loading, email, username, pwd, confirmPwd, first} = this.state
         return (
             <View>
                 <TextInput 
@@ -104,7 +95,7 @@ render() {
                      placeholder='Email...'
                      onChangeText={(val)=>this.handleEmail(val)}
                      placeholderTextColor='#74b3b0'/>
-                     {this.validateEmail(email) && <Text style={inputStyle.incorrect}>Invalid Email Format!</Text>}
+                     {(!emailValidator(email)&&!first) && <Text style={inputStyle.incorrect}>Invalid Email Format!</Text>}
                      <TextInput 
                     style={inputStyle.input}
                      placeholder='Username...'
@@ -137,13 +128,11 @@ render() {
 }
 
 const mapStateToProps = (state)=>{
-  console.log("Mapping state to props. State: ",state);
   return{
     users:state.auth.users
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  console.log("Mapping dispatch to props");
   return{
     signup:(user)=>dispatch(signup(user))
   }

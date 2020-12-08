@@ -15,7 +15,6 @@ const homeStack = createStackNavigator({
   home:Home
 })
 
-
 const SwitchNav = createSwitchNavigator(
   {
   auth: authStack,
@@ -25,23 +24,5 @@ const SwitchNav = createSwitchNavigator(
     initialRouteName: 'auth'
   }
 )
-// var defRoute
-// function setDefaultRoute(props){
-//   const check = props.users.find(user=>user.isLogged===true)
-//   if(check){
-//       defRoute = 'home'
-//   }else{
-//       defRoute = 'auth'
-//   }
-  
-// }
-//setDefaultRoute();
 
-//  const mapStateToProps = (state)=>{
-//    return{
-//      users:state.auth.users
-//    }
-//  }
-
- //connect(mapStateToProps)(setDefaultRoute)
  export default  AppContainer = createAppContainer(SwitchNav)

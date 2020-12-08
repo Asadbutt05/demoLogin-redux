@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
-import styles from '../styles/GlobalStyles'
+import styles from '../../styles/GlobalStyles'
 
 class Home extends Component {
     constructor(props){
@@ -11,7 +11,6 @@ class Home extends Component {
     }
     
     componentDidMount(){
-      console.log(this.props.users);
         const user = this.props.users.find(user=>user.isLogged===true)
         this.setState({user:user})
       }
@@ -20,7 +19,6 @@ class Home extends Component {
         this.setState({loading:true})
         try {
           this.props.logout(this.props.users,user.email)
-          console.log(user.username + ' logged out!!!')
           this.setState({loading:false})
           this.props.navigation.navigate('login')
         } catch(e) {
@@ -58,13 +56,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state)=>{
-  console.log("Mapping state to props. State: ",state);
   return{
     users:state.auth.users
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  console.log("Mapping dispatch to props"); 
   return{
     logout:(user,email)=>dispatch(logout(user,email))
   }
