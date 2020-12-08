@@ -1,7 +1,7 @@
 import React from "react";
-// import { Provider } from "react-redux";
-// import { STORE, PERSISTOR } from "./store/storeConfig";
-// import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import { STORE, PERSISTOR } from "./store/storeConfig";
+import { PersistGate } from "redux-persist/integration/react";
 import Decider from "./decider";
 
 export default class App extends React.Component {
@@ -11,11 +11,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      // <Provider store={STORE}>
-      //   <PersistGate persistor={PERSISTOR}>
+      <Provider store={STORE}>
+        <PersistGate persistor={PERSISTOR}>
           <Decider />
-      //   </PersistGate>
-      // </Provider>
+        </PersistGate>
+      </Provider>
     );
   }
 }

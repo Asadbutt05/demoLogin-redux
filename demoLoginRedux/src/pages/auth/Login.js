@@ -1,24 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Alert, Text, TextInput, View, TouchableOpacity, ActivityIndicator } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styles/GlobalStyles'
 import inputStyle from '../styles/Input'
+import {login} from '../../store/actions/auth/auth'
+import { connect } from 'react-redux'
 
-export default class Login extends Component {
-  constructor(){
-    super()
+class Login extends React.Component {
+  constructor(props){
+    super(props)
     this.state = {loading:false, email: '',pwd:'',xPwd:false};    
   }
 
-  async loginStatus(check,usersObj){
-      usersObj = usersObj.map(user=>{
-          if(user.email === check.email){
-              return {...user, isLogged:true}
-          }else return user
-      })
-      await AsyncStorage.setItem('users', JSON.stringify(usersObj));
-      this.setState({loading:false})
-      this.props.navigation.navigate('home')
+    loginStatus(usersObj,email){
+        this.props.login(usersObj,email)
+        this.setState({loading:false})
+        this.props.navigation.navigate('home')
     }
     
   createAlert(){
@@ -31,21 +27,25 @@ export default class Login extends Component {
       { cancelable: false }
     )}
 
-  async login(email,pwd){
+    displayAll(){
+      const users = this.props.users
+      console.log(users);
+      
+    }
+
+    login(email,pwd){
     this.setState({loading:true})
     try {
-      const users = await AsyncStorage.getItem('users');
-      let usersObj = JSON.parse(users)
+      let usersObj = this.props.users
       if (usersObj !== null) {
         console.log(usersObj,'aaaaa');
         const check = usersObj.find(person=>person.email.toLowerCase()===email.toLowerCase())
         if(check){
-          console.log("User Found: ",check);
+          console.log("User Found: ",check)
           if(check.pwd===pwd){
-            this.loginStatus(check,usersObj)
+            this.loginStatus(usersObj,email)
           }else{
-            this.setState({xPwd:true})
-            this.setState({loading:false})
+            this.setState({xPwd:true, loading:false})
           }
         }else{
           console.log('User Not Found!!!',usersObj)
@@ -107,3 +107,22 @@ export default class Login extends Component {
       )
     }
 }
+
+const mapDispatchProps = (dispatch) => {
+  console.log("Mapping dispatch to props");
+  return{
+    login:(users,email)=>dispatch(login(users,email))
+  }
+}
+
+const mapStateToProps = (state) => {
+  console.log("Mapping state to props. State: ",state);
+  return {
+      users: state.auth.users
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchProps
+  )(Login)

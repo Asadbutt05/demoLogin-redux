@@ -1,9 +1,9 @@
 import * as TYPES from "../../types";
 const initialState = {
-  isLoading: false,
+  isLoading: false
 };
 
-const reducer = (state = initialState, actions) => {
+const uiReducer = (state = initialState, actions) => {
   switch (actions.type) {
     case TYPES.SHOW_LOADER:
       return {
@@ -19,4 +19,4 @@ const reducer = (state = initialState, actions) => {
       return state;
   }
 };
-export default reducer;
+export default uiReducer;

@@ -1,54 +1,28 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux'
+import {logout} from '../../store/actions/auth/auth'
 import styles from '../styles/GlobalStyles'
 
-
-export default class Home extends Component {
-    constructor(){
-        super()
-        this.state = {user:{}, users:{}, loading:false}    
+class Home extends Component {
+    constructor(props){
+        super(props)
+        this.state = {user:{}, loading:false}    
     }
-    async getData(){
-      try {
-        const users = await AsyncStorage.getItem('users')
-        const usersObj = JSON.parse(users)
-        console.log(usersObj)
-        this.setState({users:usersObj})
-        if(usersObj !== null) {
-          const check = usersObj.find(person=>person.isLogged===true)
-          this.setState({user:check})
-        }
-      } catch(e) {
-        console.log('Error getting data ',e)
-      }
-    }
+    
     componentDidMount(){
-        this.getData()
+      console.log(this.props.users);
+        const user = this.props.users.find(user=>user.isLogged===true)
+        this.setState({user:user})
       }
 
-      async loginStatus(check){
-       let usersObj = this.state.users
-        usersObj = usersObj.map(user=>{
-            if(user.email===check.email){
-                return {...user, isLogged:false}
-            }else return user
-        })
-        console.log('User logged in: ', usersObj)
-        await AsyncStorage.setItem('users', JSON.stringify(usersObj));
-      }
-
-      async removeLogin(user){
+      removeLogin(user){
         this.setState({loading:true})
         try {
-          this.loginStatus(user)
+          this.props.logout(this.props.users,user.email)
           console.log(user.username + ' logged out!!!')
-          // this.props.navigation.reset({
-          //     index: 0,
-          //     routes: [{ name: 'Login' }],
-          //   });
           this.setState({loading:false})
-          this.props.navigation.navigate('Auth')
+          this.props.navigation.navigate('login')
         } catch(e) {
         // error reading value
         console.log(e+' ERRORRRRR')
@@ -83,3 +57,20 @@ export default class Home extends Component {
     }
 }
 
+const mapStateToProps = (state)=>{
+  console.log("Mapping state to props. State: ",state);
+  return{
+    users:state.auth.users
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  console.log("Mapping dispatch to props"); 
+  return{
+    logout:(user,email)=>dispatch(logout(user,email))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)

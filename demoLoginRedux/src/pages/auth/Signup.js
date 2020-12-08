@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import {Text, TextInput, View, TouchableOpacity,Alert, ActivityIndicator } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux'
+import {signup} from '../../store/actions/auth/auth'
 import inputStyle from '../styles/Input'
 import styles from '../styles/GlobalStyles'
 
-export default class Signup extends Component {
-  constructor(){
-    super()
-    this.state = {users:{},email:'', username:'', pwd:'', confirmPwd:'', first:true, loading:false};
+class Signup extends Component {
+  constructor(props){
+    super(props)
+    this.state = {email:'', username:'', pwd:'', confirmPwd:'', first:true, loading:false};
   }
 
   handleEmail(text){
@@ -62,7 +63,7 @@ export default class Signup extends Component {
         const {email, username, pwd, confirmPwd} = this.state
          if((this.validateEmail(email)===false)&&(this.validatePwd(pwd)===false)&&(this.validatePwd(pwd)===false)&&(this.validateConfirmPwd(pwd,confirmPwd)===false)){
            console.log(email+' '+username+' '+pwd)
-           this.storeData(email)
+           this.storeData()
          }else{
           this.setState({loading:false})
            console.log('Somethings wrong!!!!')
@@ -70,28 +71,17 @@ export default class Signup extends Component {
       })
    }
     
-async storeData(val){
+ storeData(){
   const {email, username, pwd} = this.state
-    const tempUser = [{email:email, username:username, pwd:pwd, isLogged:false}]
-    const users = await AsyncStorage.getItem('users')
-      if (users !== null) {
-        console.log('Data Found', users)
-        let newUsers = JSON.parse(users)
-        this.setState({users:newUsers})
-        const check = newUsers.find(user=>user.email===val)
-        if(check){
-          this.createAlert()
-          this.setState({loading:false})
-        }else{
-          newUsers = newUsers.concat(tempUser);
-          AsyncStorage.setItem('users', JSON.stringify(newUsers))
-          this.props.navigation.navigate('login')
-        }
-      } else {
-        console.log('No user Found, new user stored')
-        AsyncStorage.setItem('users', JSON.stringify(tempUser))
-        this.props.navigation.navigate('login')
-      }
+  const check = this.props.users.find(user=>user.email===email)
+    if(check){
+      this.createAlert()
+    }else{
+      const tempUser = {email:email, username:username, pwd:pwd, isLogged:false}
+      this.props.signup(tempUser)
+      this.props.navigation.navigate('login')
+
+    }
   }
 
   createAlert(){
@@ -103,13 +93,7 @@ async storeData(val){
       ],
       { cancelable: false }
     )}
-  async deletAll(){
-    await AsyncStorage.removeItem('users')
-    this.props.navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
-   }
+
    
 render() {
   const {loading, email, username, pwd, confirmPwd} = this.state
@@ -151,3 +135,21 @@ render() {
         )
     }
 }
+
+const mapStateToProps = (state)=>{
+  console.log("Mapping state to props. State: ",state);
+  return{
+    users:state.auth.users
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  console.log("Mapping dispatch to props");
+  return{
+    signup:(user)=>dispatch(signup(user))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signup)
