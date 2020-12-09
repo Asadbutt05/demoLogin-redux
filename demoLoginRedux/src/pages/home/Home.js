@@ -15,26 +15,6 @@ class Home extends Component {
         this.setState({user:user})
       }
 
-      removeLogin(user){
-        this.setState({loading:true})
-        try {
-          this.props.logout(this.props.users,user.email)
-          this.setState({loading:false})
-          this.props.navigation.navigate('login')
-        } catch(e) {
-        // error reading value
-        console.log(e+' ERRORRRRR')
-        }
-    }
-   
-    async deletAll(){
-      await AsyncStorage.removeItem('users')
-      this.props.navigation.reset({
-        index: 0,
-        routes: [{ name: 'Login' }],
-      });
-     }
-
      render() {
       const {user, loading} = this.state
         return (
@@ -43,12 +23,6 @@ class Home extends Component {
                 <Text style={styles.name}>User: {user.username} </Text>
                 <Text style={styles.name}>Email: {user.email} </Text>
                 <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
-                <TouchableOpacity 
-                    style={styles.submit} 
-                    onPress={()=>this.removeLogin(user)}>
-                    <Text>LOGOUT</Text>
-                </TouchableOpacity>
-                {loading && <ActivityIndicator size={"large"} color={"red"}/>}
             </View>
 
         )

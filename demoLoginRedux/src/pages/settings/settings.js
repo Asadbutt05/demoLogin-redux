@@ -31,14 +31,14 @@ class Settings extends Component {
       const {user, loading} = this.state
         return (
             <View style={styles.container}> 
-                <Text style={styles.text}> Welcome to Home Screen! </Text>
+                <Text style={styles.text}> Settings Screen! </Text>
                 <Text style={styles.name}>User: {user.username} </Text>
                 <Text style={styles.name}>Email: {user.email} </Text>
                 <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
                 <TouchableOpacity 
                     style={styles.submit} 
                     onPress={()=>this.removeLogin(user)}>
-                    <Text>SETTINGS</Text>
+                    <Text>LOGOUT</Text>
                 </TouchableOpacity>
                 {loading && <ActivityIndicator size={"large"} color={"red"}/>}
             </View>
