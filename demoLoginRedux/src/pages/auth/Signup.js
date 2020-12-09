@@ -52,7 +52,7 @@ class Signup extends Component {
     validateAll(){
       this.setState({first:false, loading:true},()=>{
         const {email, username, pwd, confirmPwd} = this.state
-         if((emailValidator(email)===false)&&(this.validatePwd(pwd)===false)&&(this.validatePwd(pwd)===false)&&(this.validateConfirmPwd(pwd,confirmPwd)===false)){
+         if((emailValidator(email)===true)&&(this.validatePwd(pwd)===false)&&(this.validatePwd(pwd)===false)&&(this.validateConfirmPwd(pwd,confirmPwd)===false)){
            console.log(email+' '+username+' '+pwd)
            this.storeData()
          }else{
