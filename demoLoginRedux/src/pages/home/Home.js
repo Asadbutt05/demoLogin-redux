@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
-import styles from '../../styles/GlobalStyles'
+import styles from '../../styles/globalStyles'
 
 class Home extends Component {
     constructor(props){
@@ -19,10 +19,12 @@ class Home extends Component {
       const {user, loading} = this.state
         return (
             <View style={styles.container}> 
-                <Text style={styles.text}> Welcome to Home Screen! </Text>
-                <Text style={styles.name}>User: {user.username} </Text>
-                <Text style={styles.name}>Email: {user.email} </Text>
-                <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
+                <Text style={styles.text}> Welcome to Home Screen</Text>
+                <View style={styles.body}>  
+                  <Text style={styles.name}>User: {user.username} </Text>
+                  <Text style={styles.name}>Email: {user.email} </Text>
+                  <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
+                </View>
             </View>
 
         )

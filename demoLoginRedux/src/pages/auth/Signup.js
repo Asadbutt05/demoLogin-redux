@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import {Text, TextInput, View, TouchableOpacity,Alert, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {signup} from '../../store/actions/auth/auth'
-import inputStyle from '../../styles/Input'
-import styles from '../../styles/GlobalStyles'
+import inputStyle from '../../styles/input'
+import styles from '../../styles/globalStyles'
 import {emailValidator} from '../../utilities'
 
 class Signup extends Component {
@@ -90,6 +90,9 @@ render() {
   const {loading, email, username, pwd, confirmPwd, first} = this.state
         return (
             <View>
+              <Text style={styles.signup}>
+                Enter your details:
+              </Text>
                 <TextInput 
                     style={inputStyle.input}
                      placeholder='Email...'
@@ -119,7 +122,7 @@ render() {
                 <TouchableOpacity 
                     style={styles.submit} 
                     onPress={()=>this.validateAll()}>
-                  <Text>SIGNUP</Text>
+                  <Text style={styles.log}>SIGNUP</Text>
                 </TouchableOpacity>
                 {loading && <ActivityIndicator size={"large"} color={'red'}/>}
             </View>

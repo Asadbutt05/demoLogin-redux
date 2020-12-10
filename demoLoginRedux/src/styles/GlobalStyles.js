@@ -1,29 +1,40 @@
 import {StyleSheet} from "react-native"
-
+import {WP} from '../utilities/index'
 const styles = StyleSheet.create({
     container:{
         flex: 1 
     },
+    body:{
+        marginTop:WP(10)
+    },
     submit:{
             backgroundColor:'#0096cc',
-            padding:10,
-            borderRadius:8,
-            marginTop:25,
-            width:80,
+            padding:WP(4),
+            borderRadius:WP(3),
+            marginTop:WP(8),
+            width:WP(25),
             alignSelf:"center"
           },
     text:{
             marginTop:50,
-            fontSize: 25,
+            fontSize: WP(12),
             textAlign: 'center',
-            marginBottom: 16,
         },
     name:{
-            fontSize: 25,
+            fontSize: WP(7),
             fontStyle:'italic',
-            textAlign: 'center',
-            marginBottom: 16,
+            marginLeft:WP(10),
             fontWeight:'bold'
-        }
+        },
+    log:{
+        textAlign:"center",
+        fontWeight:"bold",
+        fontSize:WP(4)
+    },
+    signup:{
+        fontSize:WP(7),
+        marginTop:WP(15),
+        textAlign:'center'
+    }
 })
 export default styles

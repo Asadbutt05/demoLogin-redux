@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
-import styles from '../../styles/GlobalStyles'
+import styles from '../../styles/globalStyles'
 
 class Profile extends Component {
     constructor(props){
@@ -31,14 +31,16 @@ class Profile extends Component {
       const {user, loading} = this.state
         return (
             <View style={styles.container}> 
-                <Text style={styles.text}> Welcome to Profile Screen! </Text>
-                <Text style={styles.name}>User: {user.username} </Text>
-                <Text style={styles.name}>Email: {user.email} </Text>
-                <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
+                <Text style={styles.text}> Welcome to Profile Screen</Text>
+                <View style={styles.body}>
+                  <Text style={styles.name}>User: {user.username} </Text>
+                  <Text style={styles.name}>Email: {user.email} </Text>
+                  <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
+                </View>
                 <TouchableOpacity 
                     style={styles.submit} 
                     onPress={()=>this.removeLogin(user)}>
-                    <Text>LOGOUT</Text>
+                    <Text style={styles.log}>LOGOUT</Text>
                 </TouchableOpacity>
                 {loading && <ActivityIndicator size={"large"} color={"red"}/>}
             </View>

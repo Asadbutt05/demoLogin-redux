@@ -1,7 +1,7 @@
 import React from 'react'
 import {Alert, Text, TextInput, View, TouchableOpacity, ActivityIndicator } from 'react-native'
-import styles from '../../styles/GlobalStyles'
-import inputStyle from '../../styles/Input'
+import styles from '../../styles/globalStyles'
+import inputStyle from '../../styles/input'
 import {login} from '../../store/actions/auth/auth'
 import { connect } from 'react-redux'
 
@@ -74,9 +74,10 @@ class Login extends React.Component {
     const {loading, email,pwd,xPwd} = this.state
       return (
           <View>
-            <Text style={styles.text}> Welcome to Login Screen! </Text>
+            <Text style={styles.text}> Welcome to Login Screen</Text>
               <TextInput 
                   style={inputStyle.input}
+                  type
                    placeholder='Email...'
                    onChangeText={(value)=>this.handleEmail(value)}
                    placeholderTextColor='#74b3b0'/>
@@ -91,7 +92,7 @@ class Login extends React.Component {
               style={styles.submit} 
               onPress={()=>{this.login(email,pwd)}}
               >
-            <Text>LOGIN</Text>
+            <Text style={styles.log}>LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity  
               style={inputStyle.button}

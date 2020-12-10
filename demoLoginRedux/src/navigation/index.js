@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from "react-navigation-stack";
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import ionIcons from 'react-native-vector-icons/Ionicons';
 import 'react-native-gesture-handler';
 import Signup from "../pages/auth/signup";
 import Login from "../pages/auth/login";
@@ -11,8 +11,17 @@ import Profile from '../pages/profile/profile'
 import Settings from '../pages/settings/settings'
 
 const authStack = createStackNavigator({
-  login:Login,
-  signup:Signup
+  login:{
+    screen:Login,
+    navigationOptions:{
+      header:null
+    }
+  },
+  signup:{
+    screen:Signup,
+  navigationOptions:{
+    title:'Signup'
+  }}
 });
 
 const homeTab = createBottomTabNavigator({
@@ -24,7 +33,7 @@ const homeTab = createBottomTabNavigator({
   defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
       const { routeName } = navigation.state;
-      let IconComponent = Ionicons;
+      let IconComponent = ionIcons;
       let iconName;
       if (routeName === 'home') {
         iconName = focused
