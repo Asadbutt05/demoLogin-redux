@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
 import styles from '../../styles/globalStyles'
+import Header from '../../components/header'
 
 class Settings extends Component {
     constructor(props){
@@ -31,6 +32,7 @@ class Settings extends Component {
       const {user, loading} = this.state
         return (
             <View style={styles.container}> 
+            <Header navigation={this.props.navigation}/>
                 <Text style={styles.text}> Settings Screen</Text>
                 <View style={styles.body}>
                   <Text style={styles.name}>User: {user.username} </Text>

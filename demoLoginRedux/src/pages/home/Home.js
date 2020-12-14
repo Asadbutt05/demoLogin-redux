@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, View, Button} from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
 import styles from '../../styles/globalStyles'
+import Header from '../../components/header'
+
 
 class Home extends Component {
     constructor(props){
@@ -16,9 +18,10 @@ class Home extends Component {
       }
 
      render() {
-      const {user, loading} = this.state
+      const {user} = this.state
         return (
             <View style={styles.container}> 
+            <Header navigation={this.props.navigation}/>
                 <Text style={styles.text}> Welcome to Home Screen</Text>
                 <View style={styles.body}>  
                   <Text style={styles.name}>User: {user.username} </Text>
