@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import styles from '../styles/globalStyles'
+import {View,Image, TouchableOpacity, } from 'react-native'
+import styles from '../styles/header'
 
 export default class header extends Component {
     constructor(props){
@@ -8,9 +8,16 @@ export default class header extends Component {
     }
     render() {
         return (
-            <Icon name='filter-sharp'size={40} 
-            onPress={()=>this.props.navigation.openDrawer()}
-            style={styles.drawer}/>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={()=>this.props.navigation.openDrawer()}>
+                    <Image source={require('../assets/menu.png')}
+                        style={styles.drawerIcon}/>
+                </TouchableOpacity>
+                <Image style={styles.centerLogo} 
+                    source={require('../assets/Icons-37.png')}/>
+                <Image style={styles.cartLogo}
+                    source={require('../assets/view_cart.png')}/>
+            </View>
         )
     }
 }

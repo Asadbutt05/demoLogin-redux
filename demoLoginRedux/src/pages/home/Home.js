@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {logout} from '../../store/actions/auth/auth'
 import styles from '../../styles/globalStyles'
 import Header from '../../components/header'
-
+import Card from '../../components/card'
 
 class Home extends Component {
     constructor(props){
@@ -21,13 +21,8 @@ class Home extends Component {
       const {user} = this.state
         return (
             <View style={styles.container}> 
-            <Header navigation={this.props.navigation}/>
-                <Text style={styles.text}> Welcome to Home Screen</Text>
-                <View style={styles.body}>  
-                  <Text style={styles.name}>User: {user.username} </Text>
-                  <Text style={styles.name}>Email: {user.email} </Text>
-                  <Text style={styles.name}>Logged in: {user.isLogged && 'True'} </Text>
-                </View>
+              <Header navigation={this.props.navigation}/>
+              <Card />
             </View>
 
         )

@@ -2,7 +2,8 @@ import {StyleSheet} from "react-native"
 import {WP} from '../utilities/index'
 const styles = StyleSheet.create({
     container:{
-        flex: 1 
+        flex: 1,
+        backgroundColor:'#fff' 
     },
     body:{
         marginTop:WP(10)
@@ -35,10 +36,6 @@ const styles = StyleSheet.create({
         fontSize:WP(7),
         marginTop:WP(15),
         textAlign:'center'
-    },
-    drawer:{
-        marginLeft:WP(5),
-        marginVertical:WP(5)
     },
     customImageContainer:{
         backgroundColor:'#ff8566',
