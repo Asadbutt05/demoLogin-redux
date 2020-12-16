@@ -37,7 +37,6 @@ export const login = (users,email)=>{
 }
 
 export const logout = (users,email)=>{
-    console.log('BBBBBBBBBBBBB',email);
     const newUsers = logoutStatus(users,email)
     console.log('logout action. users: ',newUsers);
     return{

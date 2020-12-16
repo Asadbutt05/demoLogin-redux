@@ -4,16 +4,18 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "@react-native-async-storage/async-storage";
 import ui from "./reducers/ui/ui";
 import auth from "./reducers/auth/auth";
+import country from "./reducers/country/country";
 
 const rootReducer = combineReducers({
   ui: ui,
   auth: auth,
+  country:country
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["ui"],
+  blacklist: ["ui","country"],
 };
 
 const middleware = applyMiddleware(thunk);
