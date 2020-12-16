@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from '../styles/card'
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import {WP} from '../utilities/index'
 
 export default class card extends Component {
     render() {

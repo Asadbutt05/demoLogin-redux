@@ -29,7 +29,7 @@ export const signup = (payload)=>{
 
 export const login = (users,email)=>{
     const newUsers = loginStatus(users,email)
-    //console.log('Login action. New users: ',newUsers);
+    console.log('Login action. New users: ',newUsers);
     return {
         type:TYPES.LOGIN,
         payload:newUsers

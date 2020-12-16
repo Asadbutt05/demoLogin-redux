@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import {StatusBar} from 'react-native'
 import { connect } from "react-redux";
 import {AppContext} from './context'
 import  AppContainer  from "./navigation";
+
 
 
 class Decider extends Component {
@@ -13,6 +15,7 @@ class Decider extends Component {
     render() {
         return (
              <AppContext.Provider>
+                <StatusBar backgroundColor='#ff944d'/>
                 <AppContainer />
             </AppContext.Provider>
         )

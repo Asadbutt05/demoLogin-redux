@@ -41,7 +41,7 @@ class Login extends React.Component {
           if(check){
             console.log("User Found: ",check)
             if(check.pwd===pwd){
-              this.loginStatus(usersObj,email)
+              this.loginStatus(usersObj,email.toLowerCase())
             }else{
               this.setState({xPwd:true, loading:false})
             }

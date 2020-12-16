@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginLeft:WP(7),
         borderWidth:WP(0.5),
-        borderColor:'#660033',
+        borderColor:'purple',
         borderRadius:WP(4),
         paddingHorizontal:WP(4),
         paddingVertical:WP(1)
