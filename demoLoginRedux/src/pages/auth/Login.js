@@ -86,7 +86,7 @@ class Login extends React.Component {
                    placeholder='Password...'
                    onChangeText={(value)=>this.handlePwd(value)}
                    placeholderTextColor='#74b3b0'
-                   secureTextEntry={true}/>
+                   secureTextEntry/>
                    {xPwd && <Text style={inputStyle.incorrect}>Invalid Password!</Text>}
             <TouchableOpacity 
               style={styles.submit} 

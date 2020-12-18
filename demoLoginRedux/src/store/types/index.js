@@ -4,3 +4,4 @@ export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const GET_COUNTRY = 'GET_COUNTRY'
+export const GET_API_IMAGE = 'GET_API_IMAGE'
