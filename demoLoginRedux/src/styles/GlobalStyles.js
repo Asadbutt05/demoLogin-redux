@@ -2,7 +2,7 @@ import {StyleSheet} from "react-native"
 import {WP} from '../utilities/index'
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        
         backgroundColor:'#fff' 
     },
     body:{

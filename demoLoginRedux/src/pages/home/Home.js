@@ -37,10 +37,30 @@ class Home extends Component {
 
     render() {
       const {url, apiImg,country, user} = this.state
-      //console.log(country, user);
+      // const temp1 = {borderWidth:2, borderColor:'#ff944d',borderRadius:8, marginTop:10,paddingVertical:4,
+      //               marginHorizontal:20, alignSelf:'flex-start', paddingHorizontal:40, marginBottom:-2,
+      //               borderBottomWidth:0, borderBottomEndRadius:0,borderBottomLeftRadius:0}
+      // const temp2 = {borderWidth:2, paddingVertical:50,  marginHorizontal:20, marginTop:-4,
+      //               borderRadius:8, borderColor:'#ff944d', borderTopStartRadius:0, borderTopEndRadius:5, borderTopWidth:0 }
+      // const temp3 = {alignSelf:'center',marginHorizontal:20, borderTopWidth:2, marginLeft:140,
+      //                paddingHorizontal:99, borderColor:'#ff944d', borderTopRightRadius:8, borderRightWidth:2,
+      //               paddingVertical:2}
         return (
+
             <View style={styles.container}> 
               <Header navigation={this.props.navigation}/>
+              {/* <View>
+                <TouchableOpacity style={temp1}>
+                  <Text style={{color:'#ff944d'}}>
+                    Filters
+                  </Text>
+                </TouchableOpacity>
+                <View style={temp3}>
+                </View>
+                <View style = {temp2}>
+                </View>
+              </View> */}
+
               <Card />
               <TouchableOpacity style={{backgroundColor:'yellow', width:150, alignSelf:'center'}} 
               onPress={()=>this.getImage()}>
